@@ -22,7 +22,13 @@ class task_control:
 	
 	def stop_task(self):
 		"""Function to record stop time for the task"""
-		a[key].append(time.time())
+		key = self.task_details
+		task_list.setdefault(key, [])
+		task_list[key].append(time.time())
+
+	def show_list(self):
+		""" Function to show all task list"""
+		print(task_list)
 	
 
 class Switcher:
@@ -45,10 +51,13 @@ class Switcher:
 		# call the add_task method in task_control
 		return self.tc.add_task()
  
-	def case_2(self):
+	def case_5(self):
 		# call the stop_task method in task_control
 		return self.tc.stop_task()
 
+	def case_4(self):
+		return self.tc.show_list()	
+	
 	def case_6(self):
 		print("mail sent")
 		exit
@@ -64,21 +73,24 @@ today=datetime.datetime.now()
 print(f"############ Daily Report {today.strftime('%Y-%m-%d')} ################\n\n")
 
 # Print Options to choose from
-print("Choose from the Following \n\n 1. ADD Task \t\t 2. Delete Task \t\t 3. Start Task \n\n 4. List Tasks \t\t 5. Stop Task \t\t\t 6. Finish Report")
+print("Choose from the Following \n\n 1. ADD Task \t\t 2. Delete Task \t\t 3. Start Task \n\n 4. Stop Task \t\t 5. List Tasks \t\t\t 6. Finish Report")
 
 # Task list initiation
 task_list = {}
 
 while(True):
-	# Taking input from user
-	option, task = input().split(',')
+	# Try block for tasking inputs
+	try:
+		# Taking input from user
+		options = list(input().strip().split(','))
 
-	if (int(option) > 6):
-		print("Invalid option")
-	else:
-		# Object creation for Switcher class
-		switch = Switcher(option, task)
-		# calling function for choosing the task to perform
-		switch.sw_func()
+		if (int(options[0]) > 6):
+			print("Invalid option \n Kinldy provide valid option ")
+		else:
+			# Object creation for Switcher class
+			switch = Switcher(options[0], options[1])
+			# calling function for choosing the task to perform
+			switch.sw_func()
 
-		print(task_list)
+	except Exception as e:
+		raise e		
