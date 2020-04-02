@@ -4,7 +4,7 @@ import configparser
 import sys
 import getopt
 
-helper_file = '/home/abhishek/Documents/tyroo_data/helper/helper_cred.ini'
+helper_file = '{path to ini file}'
 
 def main(argv):
     """" Handle arguments passed """
